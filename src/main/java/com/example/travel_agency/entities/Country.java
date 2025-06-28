@@ -7,11 +7,11 @@ import jakarta.persistence.Table;
 import lombok.Data;
 
 @Entity
-@Table
+@Table(name = "countries")
 @Data
 public class Country {
     @Id
     private String name;
     @ManyToOne
-    private Continent continent_membership;
+    private Continent continentMembership;
 }

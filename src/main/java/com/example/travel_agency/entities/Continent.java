@@ -1,14 +1,17 @@
 package com.example.travel_agency.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.example.travel_agency.statics.ContinentEnum;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
-@Table
+@Table(name = "continents")
 @Data
 public class Continent {
     @Id
-    private String name;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Enumerated(EnumType.STRING)
+    private ContinentEnum name;
 }
