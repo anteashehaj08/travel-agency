@@ -13,7 +13,7 @@ public class Tour {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private DepartureLocation whereFrom;
+    private DepartureLoc whereFrom;
     private ArrivalLoc whereTo;
     private LocalDate departureDate;
     private LocalDate arrivalDate;

@@ -1,11 +1,11 @@
 package com.example.travel_agency.service.impl;
 
-import com.example.travel_agency.repositories.ContinentRepository;
+import com.example.travel_agency.repositories.PurchaseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ContinentServiceImpl {
+public class PurchaseServiceImpl {
     @Autowired
-    private ContinentRepository continentRepository;
+    private PurchaseRepository purchaseRepository;
 }

@@ -4,7 +4,7 @@ import jakarta.persistence.Embeddable;
 import jakarta.persistence.ManyToOne;
 
 @Embeddable
-public class DepartureLocation {
+public class DepartureLoc {
     @ManyToOne(optional = false)
     private City city;
     @ManyToOne(optional = false)
