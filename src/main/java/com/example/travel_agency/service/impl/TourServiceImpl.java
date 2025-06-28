@@ -1,11 +1,53 @@
 package com.example.travel_agency.service.impl;
 
+import com.example.travel_agency.entities.Tour;
 import com.example.travel_agency.repositories.TourRepository;
+import com.example.travel_agency.service.TourService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.Comparator;
+import java.util.List;
+
 @Service
-public class TourServiceImpl {
+public class TourServiceImpl implements TourService {
     @Autowired
-    TourRepository tourRepository;
+    private TourRepository tourRepository;
+
+    @Override
+    public Tour createTour(Tour tour) {
+        return tourRepository.save(tour); /*Kontrollo per id*/
+    }
+    @Override
+    public Tour updateTour(Tour tour) {
+        return tourRepository.save(tour);/*Kontrollo id*/
+    }
+    @Override
+    public List<Tour> findAll() {
+        return tourRepository.findAll();
+    }
+    @Override
+    public Tour findTourById(Long id) {
+        return tourRepository.findById(id).get();
+    }
+    @Override
+    public List<Tour> sorttedByPromoted(){
+       return tourRepository.findAll().stream().sorted(Comparator.comparing(Tour::getPromoted).reversed()).toList();
+    }
+    @Override
+    public List<Tour> sorttedByDeparture(){
+        return tourRepository.findAll().stream().sorted(Comparator.comparing(Tour::getDepartureDate)).toList();
+    }
+    @Override
+    public List<Tour> sorttedByAvailability(){
+        return tourRepository.findAll().stream().sorted(Comparator.comparing(tour -> tour.getNumberOfPlaces()<3)).toList();
+    }
+    @Override
+    public void deleteByLocalDate(LocalDate date){
+        if (date.isBefore(LocalDate.now())) {
+            tourRepository.deleteAll();
+        }
+    }
+    /* recently purchased */
 }
