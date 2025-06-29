@@ -1,4 +1,7 @@
 package com.example.travel_agency.repositories;
 
-public interface CityRepository {
+import com.example.travel_agency.entities.City;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface CityRepository extends JpaRepository<City, Long> {
 }
