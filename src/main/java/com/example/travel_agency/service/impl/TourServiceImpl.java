@@ -1,6 +1,8 @@
 package com.example.travel_agency.service.impl;
 
+import com.example.travel_agency.entities.DepartureLoc;
 import com.example.travel_agency.entities.Tour;
+import com.example.travel_agency.exceptions.TourException;
 import com.example.travel_agency.repositories.TourRepository;
 import com.example.travel_agency.service.TourService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +19,20 @@ public class TourServiceImpl implements TourService {
 
     @Override
     public Tour createTour(Tour tour) {
-        return tourRepository.save(tour); /*Kontrollo per id*/
+        if (tourRepository.findById(tour.getId())!=null){
+            throw TourException.idMustBeNull();
+        }
+
+        return tourRepository.save(tour);
     }
     @Override
     public Tour updateTour(Tour tour) {
+        if (tourRepository.findById(tour.getId()).isEmpty()) {
+            throw TourException.idDoesNotExist();
+        }
+        if (tourRepository.findById(tour.getId())==null) {
+            throw TourException.idMustNotBeNull();
+        }
         return tourRepository.save(tour);/*Kontrollo id*/
     }
     @Override
