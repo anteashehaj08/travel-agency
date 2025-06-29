@@ -50,13 +50,18 @@ public class AirportServiceImpl implements AirportService {
     }
 
     @Override
-    public List<Airport> findByCity(City city) {
-        return null;
+    public List<Airport> findByCity(Long cityId){
+        return airportRepository.findAllByCity_Id(cityId);
     }
     @Override
     public Airport findById(Long Id){
         return airportRepository.findById(Id)
                 .orElseThrow(()-> new RuntimeException("Airport not found"));
+    }
+
+    @Override
+    public void create(Airport airport) {
+
     }
 }
 

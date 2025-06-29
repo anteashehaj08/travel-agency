@@ -12,8 +12,10 @@ public interface AirportService {
 
     List<Airport> findAll();
 
-    List<Airport> findByCity(City city);
 
+    List<Airport> findByCity(Long cityId);
 
     Airport findById(Long Id);
+
+    void create(Airport airport);
 }

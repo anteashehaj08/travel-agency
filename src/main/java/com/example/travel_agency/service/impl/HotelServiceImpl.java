@@ -1,7 +1,6 @@
 package com.example.travel_agency.service.impl;
 
 
-import com.example.travel_agency.entities.Airport;
 import com.example.travel_agency.entities.City;
 import com.example.travel_agency.entities.Hotel;
 import com.example.travel_agency.repositories.CityRepository;
@@ -56,11 +55,11 @@ public class HotelServiceImpl implements HotelService {
 
     @Override
     public List<Hotel> findAll() {
-        return null;
+        return hotelRepository.findAll();
     }
 
     @Override
-    public List<Hotel> findByCity(City city) {
-        return null;
+    public List<Hotel> findByCity(Long cityId) {
+        return hotelRepository.findAllByCity_Id(cityId);
     }
 }
