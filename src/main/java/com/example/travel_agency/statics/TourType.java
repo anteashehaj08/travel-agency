@@ -4,10 +4,10 @@ import lombok.Data;
 
 
 public enum TourType {
-    BB("Bed and Breakfast"),
-    HB("Half Board"),
-    FB("Full Board"),
-    AI("All Inclusive");
+    BB("BED AND BREAKFAST"),
+    HB("HALF BOARD"),
+    FB("FULL BOARD"),
+    AI("ALL INCLUSIVE");
 
     private final String typeDescription;
 

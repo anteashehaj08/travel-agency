@@ -41,13 +41,13 @@ public class TourServiceImpl implements TourService {
     }
     @Override
     public List<Tour> sorttedByAvailability(){
-        return tourRepository.findAll().stream().sorted(Comparator.comparing(tour -> tour.getNumberOfPlaces()<3)).toList();
+        return tourRepository.findAll().stream().sorted(Comparator.comparing(tour -> tour.getNumberOfPlaces()>3)).toList();
     }
-    @Override
+    /*@Override
     public void deleteByLocalDate(LocalDate date){
         if (date.isBefore(LocalDate.now())) {
             tourRepository.deleteAll();
         }
     }
-    /* recently purchased */
+    *//* recently purchased */
 }

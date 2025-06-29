@@ -18,6 +18,7 @@ public class Tour {
     private LocalDate departureDate;
     private LocalDate arrivalDate;
     private Integer duration;
+    @Enumerated(EnumType.STRING)
     private TourType type;
     private Double priceForAdult;
     private Double priceForChild;

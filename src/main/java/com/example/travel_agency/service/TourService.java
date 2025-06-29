@@ -20,5 +20,7 @@ public interface TourService {
 
     List<Tour> sorttedByAvailability();
 
+/*
     void deleteByLocalDate(LocalDate date);
+*/
 }

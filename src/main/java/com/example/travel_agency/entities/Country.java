@@ -1,9 +1,6 @@
 package com.example.travel_agency.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
@@ -11,6 +8,8 @@ import lombok.Data;
 @Data
 public class Country {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long countryId;
     private String name;
     @ManyToOne
     private Continent continentMembership;
