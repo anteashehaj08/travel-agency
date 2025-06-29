@@ -10,4 +10,7 @@ public class Airport {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long airportId;
+    private String name;
+    @ManyToOne
+    private City city;
 }

@@ -10,4 +10,10 @@ public class Hotel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long hotelId;
+    private String name;
+    private String description;
+    private Long standart;
+    @ManyToOne
+    private City city;
+
 }
