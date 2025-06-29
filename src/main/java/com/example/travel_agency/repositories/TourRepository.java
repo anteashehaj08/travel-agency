@@ -6,7 +6,6 @@ import com.example.travel_agency.statics.TourType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import java.time.LocalDate;
 import java.util.List;
 
 public interface TourRepository extends JpaRepository<Tour,Long> {
