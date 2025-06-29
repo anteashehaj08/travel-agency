@@ -17,7 +17,6 @@ import java.time.temporal.ChronoUnit;
 import java.util.Comparator;
 import java.util.List;
 
-import static com.example.travel_agency.dtos.TourRequestDto.toEntity;
 
 @Service
 public class TourServiceImpl implements TourService {
@@ -33,28 +32,43 @@ public class TourServiceImpl implements TourService {
 
     @Override
     public Tour createTour(TourRequestDto dto) {
-           Tour tour = TourRequestDto.toEntity(dto);
+        Tour tour = TourRequestDto.toEntity(dto);
+        if (tourRepository.findById(tour.getId())!=null) {
+            throw TourException.idMustBeNull();
+        }
         DepartureLoc departureLoc = new DepartureLoc();
-        departureLoc.setCity(cityRepository.findById(dto.getCityFromId()).orElseThrow());
-        departureLoc.setAirport(airportRepository.findById(dto.getFromAirportId()).orElseThrow());
+        departureLoc.setCity(cityRepository.findById(dto.getCityFromId()).orElseThrow(()->TourException.idDoesNotExist("City")));
+        departureLoc.setAirport(airportRepository.findById(dto.getFromAirportId()).orElseThrow(()->TourException.idDoesNotExist("Airport")));
         tour.setWhereFrom(departureLoc);
         ArrivalLoc arrivalLoc = new ArrivalLoc();
-        arrivalLoc.setCity(cityRepository.findById(dto.getCityToId()).orElseThrow());
-        arrivalLoc.setAirport(airportRepository.findById(dto.getToAirportId()).orElseThrow());
-        arrivalLoc.setHotel(hotelRepository.findById(dto.getHotelToId()).orElseThrow());
+        arrivalLoc.setCity(cityRepository.findById(dto.getCityToId()).orElseThrow(()->TourException.idDoesNotExist("City")));
+        arrivalLoc.setAirport(airportRepository.findById(dto.getToAirportId()).orElseThrow(()->TourException.idDoesNotExist("Airport")));
+        arrivalLoc.setHotel(hotelRepository.findById(dto.getHotelToId()).orElseThrow(()->TourException.idDoesNotExist("Hotel")));
         tour.setWhereTo(arrivalLoc);
         Long duration = ChronoUnit.DAYS.between(dto.getArrivalDate(), dto.getDepartureDate());
         tour.setDuration(duration.intValue());
         return tourRepository.save(tour);
     }
     @Override
-    public Tour updateTour(Tour tour) {
+    public Tour updateTour(TourRequestDto dto) {
+        Tour tour = TourRequestDto.toEntity(dto);
         if (tourRepository.findById(tour.getId()).isEmpty()) {
             throw TourException.idDoesNotExist("Tour");
         }
         if (tourRepository.findById(tour.getId())==null) {
-            throw TourException.idMustNotBeNull("Tour");
+            throw TourException.idMustNotBeNull();
         }
+        DepartureLoc departureLoc = new DepartureLoc();
+        departureLoc.setCity(cityRepository.findById(dto.getCityFromId()).orElseThrow(()->TourException.idDoesNotExist("City")));
+        departureLoc.setAirport(airportRepository.findById(dto.getFromAirportId()).orElseThrow(()->TourException.idDoesNotExist("Airport")));
+        tour.setWhereFrom(departureLoc);
+        ArrivalLoc arrivalLoc = new ArrivalLoc();
+        arrivalLoc.setCity(cityRepository.findById(dto.getCityToId()).orElseThrow(()->TourException.idDoesNotExist("City")));
+        arrivalLoc.setAirport(airportRepository.findById(dto.getToAirportId()).orElseThrow(()->TourException.idDoesNotExist("Airport")));
+        arrivalLoc.setHotel(hotelRepository.findById(dto.getHotelToId()).orElseThrow(()->TourException.idDoesNotExist("Hotel")));
+        tour.setWhereTo(arrivalLoc);
+        Long duration = ChronoUnit.DAYS.between(dto.getArrivalDate(), dto.getDepartureDate());
+        tour.setDuration(duration.intValue());
         return tourRepository.save(tour);
     }
     @Override
@@ -63,7 +77,7 @@ public class TourServiceImpl implements TourService {
     }
     @Override
     public Tour findTourById(Long id) {
-        return tourRepository.findById(id).get();
+        return tourRepository.findById(id).orElseThrow(()->TourException.idDoesNotExist("Tour"));
     }
     @Override
     public List<Tour> sorttedByPromoted(){
@@ -77,11 +91,6 @@ public class TourServiceImpl implements TourService {
     public List<Tour> sorttedByAvailability(){
         return tourRepository.findAll().stream().sorted(Comparator.comparing(tour -> tour.getNumberOfPlaces()>3)).toList();
     }
-    /*@Override
-    public void deleteByLocalDate(LocalDate date){
-        if (date.isBefore(LocalDate.now())) {
-            tourRepository.deleteAll();
-        }
-    }
-    *//* recently purchased */
+
+    /* recently purchased */
 }

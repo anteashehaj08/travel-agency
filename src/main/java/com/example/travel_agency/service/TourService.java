@@ -9,7 +9,7 @@ import java.util.List;
 public interface TourService {
     Tour createTour(TourRequestDto dto);
 
-    Tour updateTour(Tour tour);
+    Tour updateTour(TourRequestDto dto);
 
     List<Tour> findAll();
 
