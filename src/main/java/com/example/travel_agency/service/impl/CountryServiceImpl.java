@@ -1,6 +1,7 @@
 package com.example.travel_agency.service.impl;
 
 import com.example.travel_agency.entities.Country;
+import com.example.travel_agency.exceptions.TourException;
 import com.example.travel_agency.repositories.CityRepository;
 import com.example.travel_agency.repositories.ContinentRepository;
 import com.example.travel_agency.repositories.CountryRepository;
@@ -17,24 +18,23 @@ public class CountryServiceImpl {
     private ContinentRepository continentRepository;
 
     private CityRepository cityRepository;
-    public Country createCountry (String name, Long continentId) {
-        Long ContinentId;
-        Country country = countryRepository.findById(ContinentId)
-                .orElseThrow(RuntimeException("Country not found"));
-        Country country = new Country();
-        country.setName(name);
-        country.setContinentMembership();
-        return countryRepository.save(country);
-
+    public Country createCountry (String name, Long countryId) {
+        Country country = countryRepository.findById(countryId)
+                .orElseThrow(TourException.idDoesNotExist("Country"));
+        Country newCountry = new Country();
+        newCountry.setName(name);
+        newCountry.setContinentMembership(continentRepository.getContinentId);
+        return countryRepository.save(newCountry);
+    }
 
         public List<Country> getAllCountries(){
             return CountryRepository.findAll();
         }
 
-        public Country getCountryById;(Long id) {
+        public Country getCountryById(Long id) {
             return countryRepository.findById(id)
-                    .orElseThrow(()-> new RuntimeException("Country not found"));
-
+                    .orElseThrow(() -> new RuntimeException("Country not found"));
+        }
             public Country updateCountry (String name,Long countryId,Long continentId){
                 Country country= this.getCountryById(countryId);
             }
