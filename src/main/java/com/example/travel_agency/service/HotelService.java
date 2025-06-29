@@ -6,10 +6,14 @@ import com.example.travel_agency.entities.Hotel;
 import java.util.List;
 
 public interface HotelService {
-    Hotel create(Hotel hotel);
-    Hotel update(Hotel hotel);
-    Hotel findById(Long Id);
-    List<Hotel> findAll();
-    List<Hotel> findByCity(City city);
+    Hotel create(Long CityId, String name);
 
+
+    Hotel update(String name, Long hotelId, Long cityId);
+
+    Hotel findById(Long Id);
+
+    List<Hotel> findAll();
+
+    List<Hotel> findByCity(City city);
 }

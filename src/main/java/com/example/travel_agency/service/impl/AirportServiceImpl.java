@@ -22,7 +22,8 @@ public class AirportServiceImpl implements AirportService {
     private CityRepository cityRepository;
     @Override
     public Airport create(Long cityId, String name){
-        City city = cityRepository.findById(cityId).orElseThrow();
+        City city = cityRepository.findById(cityId)
+                .orElseThrow(()-> new RuntimeException("City not found"));
         Airport airport = new Airport();
         airport.setName(name);
         airport.setCity(city);
@@ -30,15 +31,17 @@ public class AirportServiceImpl implements AirportService {
     }
 
     @Override
-    public Airport update(String name,Long airportId, Long cityId) {
-       Airport airport = this.findById(airportId);
-       airport.setName(name);
-       if(!airport.getCity().getId().equals(cityId)){{
-           City city = cityRepository.findById(cityId).orElseThrow();
-           airport.setCity(city);
-       }
-       return airportRepository.save(airport);
-       }
+    public Airport update(String name, Long airportId, Long cityId) {
+        Airport airport = this.findById(airportId);
+        airport.setName(name);
+        if (!airport.getCity().getId().equals(cityId))
+            {
+                City city = cityRepository.findById(cityId).
+                        orElseThrow(()-> new RuntimeException("City not found"));
+                airport.setCity(city);
+            }
+            return airportRepository.save(airport);
+
     }
 
     @Override
@@ -52,7 +55,8 @@ public class AirportServiceImpl implements AirportService {
     }
     @Override
     public Airport findById(Long Id){
-        return airportRepository.findById().orElseThrow();
+        return airportRepository.findById(Id)
+                .orElseThrow(()-> new RuntimeException("Airport not found"));
     }
 }
 
