@@ -9,8 +9,11 @@ import java.time.LocalDate;
 @Data
 public class TourRequestDto {
     private Long id;
-    private FromDto whereFrom;
-    private ToDto whereTo;
+    private Long fromAirportId;
+    private Long toAirportId;
+    private Long cityFromId;
+    private Long cityToId;
+    private Long hotelToId;
     private LocalDate departureDate;
     private LocalDate arrivalDate;
     private Integer duration;
@@ -23,8 +26,6 @@ public class TourRequestDto {
     public static Tour toEntity(TourRequestDto tourDto) {
         return Tour.builder()
                 .id(tourDto.getId())
-                .whereFrom(tourDto.getWhereFrom())
-                .whereTo(tourDto.getWhereTo())
                 .departureDate(tourDto.getDepartureDate())
                 .arrivalDate(tourDto.arrivalDate)
                 .duration(tourDto.getDuration())

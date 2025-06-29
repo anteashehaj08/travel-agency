@@ -7,8 +7,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface TourService {
-    Tour createTour(Tour tour);
-
     Tour createTour(TourRequestDto dto);
 
     Tour updateTour(Tour tour);
