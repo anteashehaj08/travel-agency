@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 @Service
 public class CountryServiceImpl {
     @Autowired
@@ -18,28 +19,26 @@ public class CountryServiceImpl {
     private ContinentRepository continentRepository;
 
     private CityRepository cityRepository;
-    public Country createCountry (String name, Long countryId) {
-        Country country = countryRepository.findById(countryId)
-                .orElseThrow(TourException.idDoesNotExist("Country"));
+
+    public Country createCountry(String name, Long continentId) {
         Country newCountry = new Country();
         newCountry.setName(name);
-        newCountry.setContinentMembership(continentRepository.getContinentId);
+        newCountry.setContinentMembership(continentRepository.findById(continentId).orElseThrow());
         return countryRepository.save(newCountry);
     }
 
-        public List<Country> getAllCountries(){
-            return CountryRepository.findAll();
-        }
-
-        public Country getCountryById(Long id) {
-            return countryRepository.findById(id)
-                    .orElseThrow(() -> new RuntimeException("Country not found"));
-        }
-            public Country updateCountry (String name,Long countryId,Long continentId){
-                Country country= this.getCountryById(countryId);
-            }
-
-        }
-
+    public List<Country> getAllCountries() {
+        return countryRepository.findAll();
     }
+
+    public Country getCountryById(Long id) {
+        return countryRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Country not found"));
+    }
+
+    public Country updateCountry(String name, Long countryId, Long continentId) {
+        Country country = this.getCountryById(countryId);
+        return null;
+    }
+
 }
