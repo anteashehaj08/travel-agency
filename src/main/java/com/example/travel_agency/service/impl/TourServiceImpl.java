@@ -1,6 +1,6 @@
 package com.example.travel_agency.service.impl;
 
-import com.example.travel_agency.entities.DepartureLoc;
+import com.example.travel_agency.dtos.TourRequestDto;
 import com.example.travel_agency.entities.Tour;
 import com.example.travel_agency.exceptions.TourException;
 import com.example.travel_agency.repositories.TourRepository;
@@ -8,9 +8,10 @@ import com.example.travel_agency.service.TourService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.List;
+
+import static com.example.travel_agency.dtos.TourRequestDto.toEntity;
 
 @Service
 public class TourServiceImpl implements TourService {
@@ -18,12 +19,12 @@ public class TourServiceImpl implements TourService {
     private TourRepository tourRepository;
 
     @Override
-    public Tour createTour(Tour tour) {
-        if (tourRepository.findById(tour.getId())!=null){
-            throw TourException.idMustBeNull();
-        }
-
-        return tourRepository.save(tour);
+    public Tour createTour(TourRequestDto dto) {
+            if (dto.getId() != null) {
+                throw TourException.idMustBeNull("Tour");
+            }
+            Tour tour = toEntity(dto);
+            return tourRepository.save(tour);
     }
     @Override
     public Tour updateTour(Tour tour) {
