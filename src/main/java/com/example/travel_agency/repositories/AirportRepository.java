@@ -6,9 +6,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface AirportRepository extends JpaRepository<Airport, Long> {
 @Query(value = "Select a from Airport a where lower(a.city)= lower(:city)")
 List<Airport> findAllByCity_Id(Long cityId);
-Airport findByName(String name);
+
+
+    Optional<Airport> findByName(String name);
 }

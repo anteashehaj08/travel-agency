@@ -23,7 +23,7 @@ public class AirportControllerThymeleaf {
  @GetMapping("/airports")
  public String getAirportDetails(@PathVariable String name, Model model) {
       Airport airport = airportRepository.findByName(name)
-              .orElseThrow(() -> new IllegalArgumentException("Invalid airport name: " + name));
+              .orElseThrow(() -> new IllegalArgumentException("Airport %s is not valid" + name));
       model.addAttribute("airports", airport);
       return "airport_details";
   }
