@@ -15,5 +15,5 @@ public interface HotelService {
 
     List<Hotel> findAll();
 
-    List<Hotel> findByCity(City city);
+    List<Hotel> findByCity(Long cityId);
 }

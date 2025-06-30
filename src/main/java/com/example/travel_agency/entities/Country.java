@@ -3,6 +3,8 @@ package com.example.travel_agency.entities;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
+
 @Entity
 @Table(name = "countries")
 @Data
@@ -13,4 +15,6 @@ public class Country {
     private String name;
     @ManyToOne
     private Continent continentMembership;
+    @OneToMany(mappedBy = "countries")
+    private List<Airport> airports;
 }
