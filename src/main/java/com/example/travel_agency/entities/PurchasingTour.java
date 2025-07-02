@@ -2,11 +2,15 @@ package com.example.travel_agency.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 @Entity
 @Data
 @Table(name = "purchases")
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@EqualsAndHashCode
 public class PurchasingTour {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

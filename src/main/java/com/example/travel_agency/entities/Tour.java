@@ -17,7 +17,19 @@ public class Tour {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Embedded
+    @AssociationOverrides({
+            @AssociationOverride(name = "airport", joinColumns = @JoinColumn(name = "departure_airport_id")),
+            @AssociationOverride(name = "city", joinColumns = @JoinColumn(name = "departure_city_id"))
+    })
     private DepartureLoc whereFrom;
+
+    @Embedded
+    @AssociationOverrides({
+            @AssociationOverride(name = "airport", joinColumns = @JoinColumn(name = "arrival_airport_id")),
+            @AssociationOverride(name = "city", joinColumns = @JoinColumn(name = "arrival_city_id")),
+            @AssociationOverride(name = "hotel", joinColumns = @JoinColumn(name = "arrival_hotel_id"))
+    })
     private ArrivalLoc whereTo;
     private LocalDate departureDate;
     private LocalDate arrivalDate;

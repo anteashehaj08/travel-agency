@@ -1,8 +1,6 @@
 package com.example.travel_agency.repositories;
 
-import com.example.travel_agency.entities.Airport;
 import com.example.travel_agency.entities.Tour;
-import com.example.travel_agency.statics.TourType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
