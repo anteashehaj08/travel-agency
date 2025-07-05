@@ -1,5 +1,6 @@
 package com.example.travel_agency.service;
 
+import com.example.travel_agency.dtos.TourFilterDto;
 import com.example.travel_agency.dtos.TourRequestDto;
 import com.example.travel_agency.entities.Tour;
 
@@ -12,6 +13,8 @@ public interface TourService {
     Tour updateTour(TourRequestDto dto);
 
     List<Tour> findAll();
+
+    List<Tour> filter(TourFilterDto filterDTO);
 
     Tour findTourById(Long id);
 
