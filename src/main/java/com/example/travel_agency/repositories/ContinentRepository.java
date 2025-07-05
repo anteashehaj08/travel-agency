@@ -8,4 +8,6 @@ import java.util.Optional;
 
 public interface ContinentRepository extends JpaRepository<Continent,Long> {
     Optional<Continent> findByName(ContinentEnum name);
+
+    boolean existsByNameIgnoreCase(String name);
 }
