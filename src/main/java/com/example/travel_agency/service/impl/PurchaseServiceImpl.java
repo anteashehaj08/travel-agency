@@ -20,15 +20,13 @@ public class PurchaseServiceImpl implements PurchaseService {
 
     @Override
     public PurchasingTour purchase(PurchaseRequestDto purchaseDto){
-        Tour tour = new Tour();
-        if (purchaseDto.getNumOfChildren()+purchaseDto.getNumOfAdults()>tour.getNumberOfPlaces()){
+        Tour tour = tourRepository.findById(purchaseDto.getTourId()).orElseThrow();
+        if (purchaseDto.getNumOfChildren()+purchaseDto.getNumOfAdults()<=tour.getNumberOfPlaces()){
             PurchasingTour purchasedTour = PurchaseRequestDto.toEntity(purchaseDto);
-            purchaseDto.setTour(purchaseDto.getTour());
-            purchaseDto.setNumOfAdults(purchaseDto.getNumOfAdults());
-            purchaseDto.setNumOfChildren(purchaseDto.getNumOfChildren());
-            Double totalAmount=purchaseDto.getNumOfAdults()*tour.getPriceForAdult()
-                    +purchaseDto.getNumOfChildren()*tour.getPriceForChild();
-            purchaseDto.setTotalAmount(totalAmount);
+            purchasedTour.setTour(tour);
+            Double totalAmount=(purchaseDto.getNumOfAdults()*tour.getPriceForAdult())
+                    +(purchaseDto.getNumOfChildren()*tour.getPriceForChild());
+            purchasedTour.setTotalAmount(totalAmount);
             tour.setNumberOfPlaces(tour.getNumberOfPlaces()-(purchaseDto.getNumOfChildren()+purchaseDto.getNumOfAdults()));
             return purchaseRepository.save(purchasedTour);
         }
@@ -36,5 +34,34 @@ public class PurchaseServiceImpl implements PurchaseService {
             throw TourException.notEnoughPlaces();
         }
         }
+
+    @Override
+    public PurchasingTour updatePurchase(Long purchaseId, PurchaseRequestDto purchaseDto) {
+        PurchasingTour existingPurchase = purchaseRepository.findById(purchaseId)
+                .orElseThrow(() -> TourException.idDoesNotExist("Purchase"));
+
+        Tour tour = tourRepository.findById(purchaseDto.getTourId())
+                .orElseThrow(() -> TourException.idDoesNotExist("Tour"));
+
+        int updatedNumOfPeople = purchaseDto.getNumOfAdults() + purchaseDto.getNumOfChildren();
+        int currentNumOfPeople = existingPurchase.getNumberOfAdults() + existingPurchase.getNumberOfChildren();
+        int availableSpots = tour.getNumberOfPlaces() + currentNumOfPeople;
+
+        if (updatedNumOfPeople <= availableSpots) {
+            existingPurchase.setNumberOfAdults(purchaseDto.getNumOfAdults());
+            existingPurchase.setNumberOfChildren(purchaseDto.getNumOfChildren());
+            existingPurchase.setTour(tour);
+
+            double totalAmount = (purchaseDto.getNumOfAdults() * tour.getPriceForAdult())
+                    + (purchaseDto.getNumOfChildren() * tour.getPriceForChild());
+            existingPurchase.setTotalAmount(totalAmount);
+
+            tour.setNumberOfPlaces(availableSpots - updatedNumOfPeople);
+
+            return purchaseRepository.save(existingPurchase);
+        } else {
+            throw TourException.notEnoughPlaces();
+        }
+    }
 
 }

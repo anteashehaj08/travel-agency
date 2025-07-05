@@ -92,5 +92,4 @@ public class TourServiceImpl implements TourService {
         return tourRepository.findAll().stream().sorted(Comparator.comparing(tour -> tour.getNumberOfPlaces()>3)).toList();
     }
 
-    /* recently purchased */
 }

@@ -59,7 +59,7 @@ public class SecurityConfig {
         http.authorizeHttpRequests( request->
                 request.requestMatchers("/tour/all", "user/register").permitAll()
                         .requestMatchers("/tour/create","/city/create","country/create",
-                                "/airports/create", "/hotel/create").hasRole("ADMIN")
+                                "/airports/create", "/hotel/create", "/tour/update").hasRole("ADMIN")
                         .anyRequest().authenticated())
                 .authenticationManager(authenticationManager(http))
                 .cors(Customizer.withDefaults())

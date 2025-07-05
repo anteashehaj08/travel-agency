@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class PurchaseRequestDto {
     private Long id;
-    private Tour tour;
+    private Long tourId;
     private Integer numOfAdults;
     private Integer numOfChildren;
     private Double totalAmount;
@@ -15,7 +15,6 @@ public class PurchaseRequestDto {
     public static PurchasingTour toEntity(PurchaseRequestDto purchaseDto){
         return PurchasingTour.builder()
                 .id(purchaseDto.getId())
-                .tour(purchaseDto.getTour())
                 .numberOfAdults(purchaseDto.getNumOfAdults())
                 .numberOfChildren(purchaseDto.getNumOfChildren())
                 .totalAmount(purchaseDto.getTotalAmount())
