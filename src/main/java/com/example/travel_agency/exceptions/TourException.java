@@ -17,4 +17,8 @@ public class TourException extends RuntimeException {
     public static TourException notEnoughPlaces(){
         return new TourException("Not enough places");
     }
+    public static TourException userExists(String username) {
+        String message = String.format("User %s already exists", username);
+        return new TourException(message);
+    }
 }
