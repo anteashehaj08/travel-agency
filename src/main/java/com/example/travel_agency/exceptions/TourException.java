@@ -14,4 +14,7 @@ public class TourException extends RuntimeException {
         String message = String.format("%s with this Id does not exist", name);
         return new TourException(message);
     }
+    public static TourException notEnoughPlaces(){
+        return new TourException("Not enough places");
+    }
 }
