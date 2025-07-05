@@ -20,29 +20,21 @@ public class PurchaseServiceImpl implements PurchaseService {
 
     @Override
     public PurchasingTour purchase(PurchaseRequestDto purchaseDto){
-        PurchasingTour purchasedTour = PurchaseRequestDto.toEntity(purchaseDto);
-        purchaseDto.setTour(purchaseDto.getTour());
-        purchaseDto.setNumOfAdults(purchaseDto.getNumOfAdults());
-        purchaseDto.setNumOfChildren(purchaseDto.getNumOfChildren());
         Tour tour = new Tour();
-        Double totalAmount=purchaseDto.getNumOfAdults()*tour.getPriceForAdult()
-                +purchaseDto.getNumOfChildren()*tour.getPriceForChild();
-        purchaseDto.setTotalAmount(totalAmount);
-        return purchaseRepository.save(purchasedTour);
-    }
-    @Override
-    public PurchasingTour updatePurchase(Long purchaseId, PurchaseRequestDto dto) {
-        PurchasingTour purchase = purchaseRepository.findById(purchaseId)
-                .orElseThrow(() -> TourException.idDoesNotExist("Purchase"));
-        purchase.setNumberOfAdults(dto.getNumOfAdults());
-        purchase.setNumberOfChildren(dto.getNumOfChildren());
+        if (purchaseDto.getNumOfChildren()+purchaseDto.getNumOfAdults()>tour.getNumberOfPlaces()){
+            PurchasingTour purchasedTour = PurchaseRequestDto.toEntity(purchaseDto);
+            purchaseDto.setTour(purchaseDto.getTour());
+            purchaseDto.setNumOfAdults(purchaseDto.getNumOfAdults());
+            purchaseDto.setNumOfChildren(purchaseDto.getNumOfChildren());
+            Double totalAmount=purchaseDto.getNumOfAdults()*tour.getPriceForAdult()
+                    +purchaseDto.getNumOfChildren()*tour.getPriceForChild();
+            purchaseDto.setTotalAmount(totalAmount);
+            tour.setNumberOfPlaces(tour.getNumberOfPlaces()-(purchaseDto.getNumOfChildren()+purchaseDto.getNumOfAdults()));
+            return purchaseRepository.save(purchasedTour);
+        }
+        else {
+            throw TourException.notEnoughPlaces();
+        }
+        }
 
-        Tour tour = purchase.getTour();
-        double total = dto.getNumOfAdults() * tour.getPriceForAdult()
-                + dto.getNumOfChildren() * tour.getPriceForChild();
-
-        purchase.setTotalAmount(total);
-
-        return purchaseRepository.save(purchase);
-    }
 }

@@ -2,11 +2,12 @@ package com.example.travel_agency.repositories;
 
 import com.example.travel_agency.entities.Tour;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface TourRepository extends JpaRepository<Tour,Long> {
+public interface TourRepository extends JpaRepository<Tour,Long>, JpaSpecificationExecutor<Tour> {
     @Query(value = "select t from Tour t where upper(t.whereFrom.airport.name) like upper(:airportName)")
     public List<Tour> findByAirport(String airportName);
 
