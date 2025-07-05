@@ -17,5 +17,9 @@ public interface AirportService {
 
     Airport findById(Long Id);
 
-    void create(Airport airport);
+    Airport create();
+
+    Airport getAllAirports();
+
+    Airport saveAirport();
 }

@@ -60,8 +60,14 @@ public class AirportServiceImpl implements AirportService {
     }
 
     @Override
-    public void create(Airport airport) {
+    public Airport create() {
+     Airport airports = new Airport();
+     return airports;
+    }
 
+    @Override
+    public Airport getAllAirports() {
+        return null;
     }
 }
 
