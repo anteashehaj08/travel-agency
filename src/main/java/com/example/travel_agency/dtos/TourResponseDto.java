@@ -1,4 +1,4 @@
-crepackage com.example.travel_agency.dtos;
+package com.example.travel_agency.dtos;
 
 import com.example.travel_agency.entities.Tour;
 import com.example.travel_agency.statics.TourType;
