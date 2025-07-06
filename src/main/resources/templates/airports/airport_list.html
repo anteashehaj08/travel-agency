@@ -6,7 +6,7 @@
 </head>
 <body>
 <h2>Airport List</h2>
-<div sec:authorize="hasRole('ADMIN')">
+<div sec:authorize="hasRole('admin')">
 <a th:href="@{/airport.create}">Create New Airport</a>
 <table>
   <tr>ID</tr>
