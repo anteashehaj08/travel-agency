@@ -16,7 +16,7 @@ public class AirportController {
 @PostMapping("/create")
     public String createAirport(@ModelAttribute("airport") Airport airport){
     airportService.createAirport(airport.getAirportId(), airport.getName());
-    return "redirect:/airports";
+    return "redirect:/airports/airport_list";
 }
 @GetMapping("/find/{id}")
     public String editAirport(@PathVariable Long id, Model model){

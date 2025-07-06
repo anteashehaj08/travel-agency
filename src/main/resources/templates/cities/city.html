@@ -6,8 +6,10 @@
 </head>
 <body>
 <form>
-    <p>City: <span th:text="${city.name}"></span></p>
+    <tr th:each="city : ${city}">
+    <p>City: <span th:text="${city.name}"></span> </p>
     <p>Airport: <span th:text="${city.airports}"></span></p>
+    </tr>
 </form>
 </body>
 </html>
