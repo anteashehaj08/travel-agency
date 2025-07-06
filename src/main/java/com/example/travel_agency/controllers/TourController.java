@@ -5,6 +5,7 @@ import com.example.travel_agency.dtos.TourFilterDto;
 import com.example.travel_agency.dtos.TourRequestDto;
 import com.example.travel_agency.dtos.TourResponseDto;
 import com.example.travel_agency.entities.Tour;
+import com.example.travel_agency.repositories.TourRepository;
 import com.example.travel_agency.service.TourService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,9 @@ import java.util.stream.Collectors;
 public class TourController {
     @Autowired
     private TourService tourService;
+
+    @Autowired
+    private TourRepository tourRepository;
 
     @GetMapping("/new")
     public String newTourPage(Model model) {
@@ -59,5 +63,55 @@ public class TourController {
         return "tours/filter";
     }
 
+    @GetMapping("/search")
+    public String searchForm(Model model) {
+        model.addAttribute("searchParam", "");
+        return "tours/search";
+    }
+
+    @PostMapping("/search/continent")
+    public String searchToursByContinent(@RequestParam("continent") String continent, Model model) {
+        List<Tour> tours = tourRepository.findByContinent(continent);
+        List<TourResponseDto> tourDtos = tours.stream()
+                .map(TourResponseDto::toDto)
+                .collect(Collectors.toList());
+
+        model.addAttribute("searchParam", continent);
+        model.addAttribute("tours", tourDtos);
+        return "tours/search-continent";
+    }
+    @PostMapping("/search/country")
+    public String searchToursByCountry(@RequestParam("country") String country, Model model) {
+        List<Tour> tours = tourRepository.findByCountry(country);
+        List<TourResponseDto> tourDtos = tours.stream()
+                .map(TourResponseDto::toDto)
+                .collect(Collectors.toList());
+
+        model.addAttribute("searchParam", country);
+        model.addAttribute("tours", tourDtos);
+        return "tours/search-country";
+    }
+    @PostMapping("/search/city")
+    public String searchToursByCity(@RequestParam("city") String city, Model model) {
+        List<Tour> tours = tourRepository.findByCity(city);
+        List<TourResponseDto> tourDtos = tours.stream()
+                .map(TourResponseDto::toDto)
+                .collect(Collectors.toList());
+
+        model.addAttribute("searchParam", city);
+        model.addAttribute("tours", tourDtos);
+        return "tours/search-city";
+    }
+    @PostMapping("/search/hotel")
+    public String searchToursByHotel(@RequestParam("hotel") String hotel, Model model) {
+        List<Tour> tours = tourRepository.findByHotel(hotel);
+        List<TourResponseDto> tourDtos = tours.stream()
+                .map(TourResponseDto::toDto)
+                .collect(Collectors.toList());
+
+        model.addAttribute("searchParam", hotel);
+        model.addAttribute("tours", tourDtos);
+        return "tours/search-hotel";
+    }
 
 }
