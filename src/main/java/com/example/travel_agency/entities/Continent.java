@@ -18,8 +18,4 @@ public class Continent {
 
     @Enumerated(EnumType.STRING)
     private ContinentEnum name;
-
-    public Continent(String name){
-        this.name=ContinentEnum.valueOf(name);
-    }
 }
