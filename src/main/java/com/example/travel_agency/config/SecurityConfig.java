@@ -14,6 +14,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -22,6 +23,7 @@ import java.util.Arrays;
 
 
 @Configuration
+@EnableWebSecurity
 public class SecurityConfig {
     @Autowired
     private RoleRepository roleRepository;
@@ -49,8 +51,10 @@ public class SecurityConfig {
     @PostConstruct
     public void addContinents() {
         Arrays.stream(ContinentEnum.values()).forEach(enumVal -> {
-            if (!continentRepository.existsByNameIgnoreCase(enumVal.name())) {
-                continentRepository.save(new Continent(enumVal.name()));
+            if (!continentRepository.existsByName(enumVal)) {
+                Continent continent = new Continent();
+                continent.setName(enumVal);
+                continentRepository.save(continent);
             }
         });
     }
