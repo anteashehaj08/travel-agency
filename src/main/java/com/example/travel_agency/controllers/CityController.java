@@ -9,7 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping(value = "/cities")
+@RequestMapping("/cities")
 public class CityController {
     @Autowired
     public CityService cityService;

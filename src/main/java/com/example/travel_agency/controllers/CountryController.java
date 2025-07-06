@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.*;
 public class CountryController {
     @Autowired
     public CountryService countryService;
-    @Autowired
-    public CountryRepository countryRepository;
 
 
     @PostMapping("/update")
@@ -26,7 +24,7 @@ public class CountryController {
 
     @GetMapping("/find/{id}")
     public String findById(@PathVariable Long countryId, Model model) {
-        model.addAttribute("country", countryRepository.getCountryById(countryId));
+        model.addAttribute("country", countryService.getCountryById(countryId));
         return "/country/countries";
     }
 }
