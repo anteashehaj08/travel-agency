@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:sec="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Countries</title>
+</head>
+<body>
+<div sec:authorize="hasRole('admin')">
+    <h1>Edit Country</h1>
+    <form th:action="@{/countries/update}" th:object="${country}" method="post">
+        <input type="hidden" th:field="*{countryId}" />
+        <div>
+            <label for="name">Country Name:</label>
+            <input type="text" id="name" th:field="*{name}" required />
+        </div>
+        <div>
+            <label for="continent">Continent ID:</label>
+            <input type="number" id="continent" th:field="*{continentMembership.id}" required />
+        </div>
+        <div>
+            <button type="submit">Update Country</button>
+        </div>
+    </form>
+    <a th:href="@{/countries}">Back to Country List</a>
+</div>
+</body>
+</html>

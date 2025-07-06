@@ -1,7 +1,6 @@
 package com.example.travel_agency.controllers;
 
 import com.example.travel_agency.entities.Country;
-import com.example.travel_agency.repositories.CountryRepository;
 import com.example.travel_agency.service.CountryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,6 +24,6 @@ public class CountryController {
     @GetMapping("/find/{id}")
     public String findById(@PathVariable Long countryId, Model model) {
         model.addAttribute("country", countryService.getCountryById(countryId));
-        return "/country/countries";
+        return "/countries/country";
     }
 }

@@ -1,15 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"   xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Cities</title>
 </head>
 <body>
-<form>
-    <tr th:each="city : ${city}">
-    <p>City: <span th:text="${city.name}"></span> </p>
-    <p>Airport: <span th:text="${city.airports}"></span></p>
-    </tr>
+<h1>Edit City</h1>
+<form th:action="@{/cities/create}" th:object="${city}" method="post">
+    <input type="hidden" th:field="*{id}" />
+    <div>
+        <label for="name">City Name:</label>
+        <input type="text" id="name" th:field="*{name}" required />
+    </div>
+    <div>
+        <button type="submit">Save City</button>
+    </div>
 </form>
+<a th:href="@{/cities}">Back to City List</a>
 </body>
 </html>
