@@ -9,14 +9,17 @@
 <div sec:authorize="hasRole('admin')">
 <a th:href="@{/airport.create}">Create New Airport</a>
 <table>
-  <tr>ID</tr>
+  <thead>
+  <tr>
+  <th>ID</th>
   <th>Name</th>
   <th>City</th>
   </tr>
-  <tr th:each="airport : ${airport}">
-    <td th:text="${airport.id}"></td>
-    <td th:text="${airport.name}"></td>
-    <td th:text="${airport.city}"></td>
+  </thead>
+  <tr th:each="airport : ${airports}">
+    <td th:text="${airports.airportId}"></td>
+    <td th:text="${airports.name}"></td>
+    <td th:text="${airports.city}"></td>
   </tr>
 </table>
 </div>

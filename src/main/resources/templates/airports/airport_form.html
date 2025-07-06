@@ -6,11 +6,11 @@
 </head>
 <body>
 <h2>Add New Airport:</h2>
-<form th:action="@{/airports/save}" th:object="${airport}" method="post">
-    <label>Name:</label>
-    <input type="text" th:field="*{airport.name}" /><br/>
-    <label>City:</label>
-    <input type="text" th:field="*{airport.city}" /><br/>
+<form th:action="@{/airports/create}" th:object="${airport}" method="post">
+    <label for="name">Name:</label>
+    <input type="text" id="name" th:field="*{name}" /><br/>
+    <label for="city">City:</label>
+    <input type="text" id="city" th:field="*{city}" /><br/>
     <button type="submit">Save</button>
 </form>
 </body>
