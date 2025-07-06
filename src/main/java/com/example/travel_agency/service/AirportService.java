@@ -1,7 +1,6 @@
 package com.example.travel_agency.service;
 
 import com.example.travel_agency.entities.Airport;
-import com.example.travel_agency.entities.City;
 
 import java.util.List;
 

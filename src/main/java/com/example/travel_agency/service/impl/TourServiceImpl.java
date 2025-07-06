@@ -1,5 +1,6 @@
 package com.example.travel_agency.service.impl;
 
+import com.example.travel_agency.dtos.TourFilterDto;
 import com.example.travel_agency.dtos.TourRequestDto;
 import com.example.travel_agency.entities.ArrivalLoc;
 import com.example.travel_agency.entities.DepartureLoc;
@@ -10,7 +11,9 @@ import com.example.travel_agency.repositories.CityRepository;
 import com.example.travel_agency.repositories.HotelRepository;
 import com.example.travel_agency.repositories.TourRepository;
 import com.example.travel_agency.service.TourService;
+import com.example.travel_agency.specifications.TourSpecs;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.time.temporal.ChronoUnit;
@@ -45,7 +48,7 @@ public class TourServiceImpl implements TourService {
         arrivalLoc.setAirport(airportRepository.findById(dto.getToAirportId()).orElseThrow(()->TourException.idDoesNotExist("Airport")));
         arrivalLoc.setHotel(hotelRepository.findById(dto.getHotelToId()).orElseThrow(()->TourException.idDoesNotExist("Hotel")));
         tour.setWhereTo(arrivalLoc);
-        Long duration = ChronoUnit.DAYS.between(dto.getArrivalDate(), dto.getDepartureDate());
+        Long duration = ChronoUnit.DAYS.between(dto.getReturnDate(), dto.getDepartureDate());
         tour.setDuration(duration.intValue());
         return tourRepository.save(tour);
     }
@@ -67,7 +70,7 @@ public class TourServiceImpl implements TourService {
         arrivalLoc.setAirport(airportRepository.findById(dto.getToAirportId()).orElseThrow(()->TourException.idDoesNotExist("Airport")));
         arrivalLoc.setHotel(hotelRepository.findById(dto.getHotelToId()).orElseThrow(()->TourException.idDoesNotExist("Hotel")));
         tour.setWhereTo(arrivalLoc);
-        Long duration = ChronoUnit.DAYS.between(dto.getArrivalDate(), dto.getDepartureDate());
+        Long duration = ChronoUnit.DAYS.between(dto.getReturnDate(), dto.getDepartureDate());
         tour.setDuration(duration.intValue());
         return tourRepository.save(tour);
     }
@@ -75,6 +78,13 @@ public class TourServiceImpl implements TourService {
     public List<Tour> findAll() {
         return tourRepository.findAll();
     }
+
+    @Override
+    public List<Tour> filter(TourFilterDto filterDTO) {
+        Specification<Tour> specification = TourSpecs.filter(filterDTO);
+        return tourRepository.findAll(specification);
+    }
+
     @Override
     public Tour findTourById(Long id) {
         return tourRepository.findById(id).orElseThrow(()->TourException.idDoesNotExist("Tour"));
@@ -92,5 +102,4 @@ public class TourServiceImpl implements TourService {
         return tourRepository.findAll().stream().sorted(Comparator.comparing(tour -> tour.getNumberOfPlaces()>3)).toList();
     }
 
-    /* recently purchased */
 }

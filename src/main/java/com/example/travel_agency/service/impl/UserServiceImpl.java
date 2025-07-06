@@ -3,6 +3,7 @@ package com.example.travel_agency.service.impl;
 
 import com.example.travel_agency.entities.Role;
 import com.example.travel_agency.entities.User;
+import com.example.travel_agency.exceptions.TourException;
 import com.example.travel_agency.repositories.RoleRepository;
 import com.example.travel_agency.repositories.UserRepository;
 import com.example.travel_agency.service.UserService;
@@ -22,7 +23,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User create(User user) {
         if (userRepository.existsByUsername(user.getUsername())) {
-          //  throw RuntimeException(user.getUsername());
+            throw TourException.userExists(user.getUsername());
         } else {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
         }
@@ -31,10 +32,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public User register(User user) {
         if (userRepository.existsByUsername(user.getUsername())) {
-         //   throw RuntimeException.usernameExists(user.getUsername());
+            throw TourException.userExists(user.getUsername());
         } else {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
-         //   user.setRole((Role) roleRepository.findById("ROLE_USER").get());
+            user.setRole((Role) roleRepository.findById("ROLE_USER").get());
         }
         return userRepository.save(user);
     }

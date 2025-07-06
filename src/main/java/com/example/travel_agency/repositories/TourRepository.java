@@ -4,28 +4,21 @@ import com.example.travel_agency.entities.Tour;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
 public interface TourRepository extends JpaRepository<Tour,Long>, JpaSpecificationExecutor<Tour> {
-    @Query(value = "select t from Tour t where upper(t.whereFrom.airport.name) like upper(:airportName)")
-    public List<Tour> findByAirport(String airportName);
-
-    @Query(value = "select t from Tour t where upper(t.whereTo.hotel.name) like upper(:hotelName)")
-    public List<Tour> findByHotel(String hotelName);
-
-    @Query(value = "select t from Tour t where t.departureDate=:departureDate")
-    public List<Tour> findByDepartureDate(String departureDate);
-
-    @Query(value = "select t from Tour t where t.arrivalDate=:arrivalDate")
-    public List<Tour> findByArrivalDate(String arrivalDate);
-
-    @Query(value = "select t from Tour t where t.type=upper(:tourType) ")
-    public List<Tour> findByTourType(String tourType);
-
-    @Query(value = "select t from Tour t where t.whereTo.hotel.standart=:numOfStars")
-    public List<Tour> findByNumOfStars(String numOfStars);
-
-    @Query(value = "select t from Tour t where t.duration=:numOfDays")
-    public List<Tour> findByNumOfDays(String numOfDays);
+    @Query("SELECT t FROM Tour t WHERE LOWER" +
+            "(t.whereTo.hotel.city.nationality.continentMembership.name) = LOWER(:continent)")
+    List<Tour> findByContinent(@Param("continent") String continent);
+    @Query("SELECT t FROM Tour t WHERE LOWER" +
+            "(t.whereTo.hotel.city.nationality.name) = LOWER(:country)")
+    List<Tour> findByCountry(@Param("country") String country);
+    @Query("SELECT t FROM Tour t WHERE LOWER" +
+            "(t.whereTo.hotel.city.name) = LOWER(:city)")
+    List<Tour> findByCity(@Param("city") String city);
+    @Query("SELECT t FROM Tour t WHERE LOWER" +
+            "(t.whereTo.hotel.name) = LOWER(:hotel)")
+    List<Tour> findByHotel(@Param("hotel") String hotel);
 }
