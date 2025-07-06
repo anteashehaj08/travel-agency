@@ -13,14 +13,14 @@ import org.springframework.web.bind.annotation.*;
 public class AirportController {
 @Autowired
     private AirportService airportService;
-@PostMapping("airports/create")
-    public String createAirport(@ModelAttribute Airport airport){
-    airportService.saveAirport();
+@PostMapping("/create")
+    public String createAirport(@ModelAttribute("airport") Airport airport){
+    airportService.createAirport(airport.getAirportId(), airport.getName());
     return "redirect:/airports";
 }
-@GetMapping("/airports/find/{id}")
+@GetMapping("/find/{id}")
     public String editAirport(@PathVariable Long id, Model model){
     model.addAttribute("airport",airportService.findById(id));
-    return "airports/find";
+    return "/airports/airport_details";
 }
 }
