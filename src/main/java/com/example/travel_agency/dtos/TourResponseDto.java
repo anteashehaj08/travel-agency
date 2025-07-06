@@ -7,6 +7,7 @@ import lombok.Data;
 import java.time.LocalDate;
 @Data
 public class TourResponseDto {
+    private long id;
     private Long fromCityId;
     private Long toCityId;
     private Long fromAirportId;

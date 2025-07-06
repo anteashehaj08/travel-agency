@@ -25,10 +25,10 @@
         <div>
             <label for="continent" class="form-label">Continent</label>
             <select class="form-select" name="continent" id="continent">
-                <option value="">All</option>
-                <option value="Europe">Europe</option>
-                <option value="Asia">Asia</option>
-                <!-- Add others -->
+                <option value="">-</option>
+                <option th:each="continent : ${continents}"
+                                                   th:value="${continent.id}"
+                                                   th:text="${continent.name.getDisplayName()}">
             </select>
         </div>
         <button class="btn btn-primary align-self-end" type="submit">Apply</button>
@@ -39,10 +39,9 @@
     <div class="col" th:each="tour : ${tours}">
         <div class="card h-100">
             <div class="card-body">
-                <h5 class="card-title" th:text="${tour.name}">Tour Name</h5>
                 <p class="card-text">
-                    <span th:text="'City: ' + ${tour.city}">City</span><br>
-                    <span th:text="'Hotel: ' + ${tour.hotel}">Hotel</span><br>
+                    <span th:text="'City: ' + ${tour.whereTo.city}">City</span><br>
+                    <span th:text="'Hotel: ' + ${tour.whereTo.hotel}">Hotel</span><br>
                     <span th:text="'Departure: ' + ${tour.departureDate}">Departure</span>
                 </p>
                 <p class="text-success fw-bold" th:if="${tour.promoted}">Promoted</p>

@@ -9,11 +9,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ContinentServiceImpl implements ContinentService {
     @Autowired
     private ContinentRepository continentRepository;
+
+    @Override
+    public List<Continent> findAll(){
+        return continentRepository.findAll();
+    }
+
+    @Override
+    public Optional<Continent> findById(Long id){
+        return continentRepository.findById(id);
+    }
 
     @PostConstruct
     public void addContinents() {
