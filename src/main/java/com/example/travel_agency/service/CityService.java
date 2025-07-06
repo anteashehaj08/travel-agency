@@ -12,4 +12,5 @@ public interface CityService {
     List<City> getAllCities();
     City getCityById(Long id);
     City updateCity(String name, Long cityId, Long countryId);
+
 }

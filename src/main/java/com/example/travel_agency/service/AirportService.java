@@ -5,7 +5,7 @@ import com.example.travel_agency.entities.Airport;
 import java.util.List;
 
 public interface AirportService {
-    Airport create(Long cityId, String name);
+    Airport createAirport(Long cityId, String name);
 
     Airport update(String name, Long airportId, Long cityId);
 
@@ -16,5 +16,6 @@ public interface AirportService {
 
     Airport findById(Long Id);
 
-    void create(Airport airport);
+
+    Airport getAllAirports();
 }

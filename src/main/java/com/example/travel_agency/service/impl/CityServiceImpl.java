@@ -48,4 +48,5 @@ public class CityServiceImpl implements CityService {
         city.setName(name != null ? name : city.getName());
         return cityRepository.save(city);
     }
+
 }

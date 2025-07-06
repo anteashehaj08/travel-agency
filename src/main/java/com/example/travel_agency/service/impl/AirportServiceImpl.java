@@ -21,7 +21,7 @@ public class AirportServiceImpl implements AirportService {
     @Autowired
     private CityRepository cityRepository;
     @Override
-    public Airport create(Long cityId, String name){
+    public Airport createAirport(Long cityId, String name){
         City city = cityRepository.findById(cityId)
                 .orElseThrow(()-> new RuntimeException("City not found"));
         Airport airport = new Airport();
@@ -58,10 +58,9 @@ public class AirportServiceImpl implements AirportService {
         return airportRepository.findById(Id)
                 .orElseThrow(()-> new RuntimeException("Airport not found"));
     }
-
     @Override
-    public void create(Airport airport) {
-
+    public Airport getAllAirports() {
+        return null;
     }
 }
 

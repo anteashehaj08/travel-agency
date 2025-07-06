@@ -5,13 +5,14 @@ import com.example.travel_agency.exceptions.TourException;
 import com.example.travel_agency.repositories.CityRepository;
 import com.example.travel_agency.repositories.ContinentRepository;
 import com.example.travel_agency.repositories.CountryRepository;
+import com.example.travel_agency.service.CountryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class CountryServiceImpl {
+public class CountryServiceImpl implements CountryService {
     @Autowired
     private CountryRepository countryRepository;
 
