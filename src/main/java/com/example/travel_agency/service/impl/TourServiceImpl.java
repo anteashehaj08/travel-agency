@@ -48,7 +48,7 @@ public class TourServiceImpl implements TourService {
         arrivalLoc.setAirport(airportRepository.findById(dto.getToAirportId()).orElseThrow(()->TourException.idDoesNotExist("Airport")));
         arrivalLoc.setHotel(hotelRepository.findById(dto.getHotelToId()).orElseThrow(()->TourException.idDoesNotExist("Hotel")));
         tour.setWhereTo(arrivalLoc);
-        Long duration = ChronoUnit.DAYS.between(dto.getArrivalDate(), dto.getDepartureDate());
+        Long duration = ChronoUnit.DAYS.between(dto.getReturnDate(), dto.getDepartureDate());
         tour.setDuration(duration.intValue());
         return tourRepository.save(tour);
     }
@@ -70,7 +70,7 @@ public class TourServiceImpl implements TourService {
         arrivalLoc.setAirport(airportRepository.findById(dto.getToAirportId()).orElseThrow(()->TourException.idDoesNotExist("Airport")));
         arrivalLoc.setHotel(hotelRepository.findById(dto.getHotelToId()).orElseThrow(()->TourException.idDoesNotExist("Hotel")));
         tour.setWhereTo(arrivalLoc);
-        Long duration = ChronoUnit.DAYS.between(dto.getArrivalDate(), dto.getDepartureDate());
+        Long duration = ChronoUnit.DAYS.between(dto.getReturnDate(), dto.getDepartureDate());
         tour.setDuration(duration.intValue());
         return tourRepository.save(tour);
     }

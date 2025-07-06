@@ -4,7 +4,7 @@ import com.example.travel_agency.dtos.TourFilterDto;
 import com.example.travel_agency.dtos.TourRequestDto;
 import com.example.travel_agency.entities.Tour;
 
-import java.time.LocalDate;
+
 import java.util.List;
 
 public interface TourService {

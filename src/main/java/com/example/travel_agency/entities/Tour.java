@@ -40,6 +40,4 @@ public class Tour {
     private Double priceForChild;
     private Boolean promoted;
     private Integer numberOfPlaces;
-
-
 }

@@ -15,24 +15,24 @@ public class TourRequestDto {
     private Long cityToId;
     private Long hotelToId;
     private LocalDate departureDate;
-    private LocalDate arrivalDate;
+    private LocalDate returnDate;
     private Integer duration;
     private TourType type;
     private Double priceForAdult;
     private Double priceForChild;
     private Boolean promoted;
-    private Integer places;
+    private Integer vacantPlaces;
 
     public static Tour toEntity(TourRequestDto tourDto) {
         return Tour.builder()
                 .id(tourDto.getId())
                 .departureDate(tourDto.getDepartureDate())
-                .arrivalDate(tourDto.arrivalDate)
+                .arrivalDate(tourDto.returnDate)
                 .duration(tourDto.getDuration())
                 .type(tourDto.getType())
                 .priceForAdult(tourDto.getPriceForAdult())
                 .priceForChild(tourDto.getPriceForChild())
-                .numberOfPlaces(tourDto.getPlaces())
+                .numberOfPlaces(tourDto.getVacantPlaces())
                 .promoted(tourDto.getPromoted())
                 .build();
     }
