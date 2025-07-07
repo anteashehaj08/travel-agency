@@ -44,9 +44,14 @@ public class SecurityConfig {
       @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests( request->
-                request.requestMatchers("/tour/all", "user/register").permitAll()
-                        .requestMatchers("/tour/create","/city/create","country/create",
-                                "/airports/create", "/hotel/create", "/tour/update").hasRole("ADMIN")
+                request.requestMatchers("tours", "tours/search","tours/search/",
+                                "tours/search/city","tours/search/continent",
+                                "tours/search/country","tours/filter","tours/details/",
+                                "tours/search/hotel","purchases","purchases/","purchases/new",
+                                "purchases/update/","airports/find/","airports/list",
+                                "cities/find/", "countries/find/","user/register").permitAll()
+                        .requestMatchers("tours/new","tours/","tours/edit/","tours/save","countries/update",
+                                "countries/","cities/","cities/create").hasRole("ADMIN")
                         .anyRequest().authenticated())
                 .authenticationManager(authenticationManager(http))
                 .cors(Customizer.withDefaults())
