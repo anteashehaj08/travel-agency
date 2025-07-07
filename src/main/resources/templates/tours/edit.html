@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Tour</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body class="container py-5">
+<h2>Edit Tour</h2>
+
+<form th:action="@{/tours/update}" th:object="${tour}" method="post">
+    <input type="hidden" th:field="*{id}" />
+
+    <div class="mb-3">
+        <label for="departureDate" class="form-label">Departure Date</label>
+        <input type="date" class="form-control" id="departureDate" th:field="*{departureDate}" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="promoted" class="form-label">Promoted</label>
+        <input type="checkbox" id="promoted" th:field="*{promoted}">
+    </div>
+
+    <!-- Add fields like city, hotel, etc. as needed -->
+
+    <button type="submit" class="btn btn-success">Update Tour</button>
+</form>
+
+<a th:href="@{/tours}" class="btn btn-secondary mt-4">Back to Tours</a>
+</body>
+</html>

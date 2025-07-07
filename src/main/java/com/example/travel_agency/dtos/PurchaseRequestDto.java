@@ -4,6 +4,8 @@ import com.example.travel_agency.entities.PurchasingTour;
 import com.example.travel_agency.entities.Tour;
 import lombok.Data;
 
+import java.time.LocalDate;
+
 @Data
 public class PurchaseRequestDto {
     private Long id;
@@ -11,6 +13,7 @@ public class PurchaseRequestDto {
     private Integer numOfAdults;
     private Integer numOfChildren;
     private Double totalAmount;
+    private LocalDate tourDepartureDate;
 
     public static PurchasingTour toEntity(PurchaseRequestDto purchaseDto){
         return PurchasingTour.builder()

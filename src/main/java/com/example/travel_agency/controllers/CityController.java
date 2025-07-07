@@ -20,7 +20,7 @@ public class CityController {
     @GetMapping("/find/{id}")
     public String editCity(@PathVariable Long id, Model model){
         model.addAttribute("city",cityService.getCityById(id));
-        return "/cities/city";
+        return "/cities/city_list.html";
     }
 }
 

@@ -37,17 +37,17 @@
 
 <div class="row row-cols-1 row-cols-md-4 g-4">
     <div class="col" th:each="tour : ${tours}">
-        <div class="card h-100">
+        <div class="card" th:each="tour : ${tours}">
             <div class="card-body">
-                <p class="card-text">
-                    <span th:text="'City: ' + ${tour.whereTo.city}">City</span><br>
-                    <span th:text="'Hotel: ' + ${tour.whereTo.hotel}">Hotel</span><br>
-                    <span th:text="'Departure: ' + ${tour.departureDate}">Departure</span>
-                </p>
-                <p class="text-success fw-bold" th:if="${tour.promoted}">Promoted</p>
-                <a th:href="@{/tours/details/{id}(id=${tour.id})}" class="btn btn-outline-info">View Details</a>
+                <p th:text="'Departure: ' + ${tour.departureDate}"></p>
+                <p th:text="'Places: ' + ${tour.numberOfPlaces}"></p>
+                <p th:text="'Adult Price: $' + ${tour.priceForAdult}"></p>
+                <a th:href="@{'/purchases/new?tourId=' + ${tour.id}}" class="btn btn-outline-primary btn-sm" title="Purchase this tour">
+                    🛒 Purchase
+                </a>
             </div>
         </div>
+
     </div>
 </div>
 

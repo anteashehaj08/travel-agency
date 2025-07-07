@@ -16,9 +16,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -76,7 +78,10 @@ public class TourServiceImpl implements TourService {
     }
     @Override
     public List<Tour> findAll() {
-        return tourRepository.findAll();
+        return tourRepository.findAll()
+                .stream()
+                .filter(t -> t.getDepartureDate().isAfter(LocalDate.now()))
+                .collect(Collectors.toList());
     }
 
     @Override
