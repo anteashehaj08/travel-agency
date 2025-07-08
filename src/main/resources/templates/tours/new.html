@@ -46,22 +46,14 @@
         <input type="date" class="form-control" id="returnDate" th:field="*{returnDate}" required>
     </div>
 
-    <div class="form-check mb-3">
-        <input class="form-check-input" type="checkbox" id="duration" th:field="*{duration}">
-        <label class="form-check-label" for="duration">Promoted</label>
-    </div>
-
     <div class="mb-3">
         <label for="typeId" class="form-label">From Type</label>
         <select id="typeId" class="form-select" th:field="*{type}" required>
             <option value="">-- Select Type --</option>
-            <option th:each="c : ${tour.type}" th:value="${c}" th:text="${c}"></option>
-        </select>
-    </div>
-
-    <div class="mb-3">
-        <label for="adultPrice" class="form-label">Price for Adults</label>
-        <input type="number" class="form-control" id="adultPrice" th:field="*{priceForAdult}" required>
+            <option th:each="t : ${types}" th:value="${t}" th:text="${t}"></option>
+            </select>
+            <label for="adultPrice" class="form-label">Price for Adults</label>
+            <input type="number" class="form-control" id="adultPrice" th:field="*{priceForAdult}" required>
     </div>
 
     <div class="mb-3">

@@ -9,6 +9,7 @@ import com.example.travel_agency.entities.Tour;
 import com.example.travel_agency.repositories.TourRepository;
 import com.example.travel_agency.service.ContinentService;
 import com.example.travel_agency.service.TourService;
+import com.example.travel_agency.statics.TourType;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -43,6 +44,7 @@ public class TourController {
     @GetMapping("/new")
     public String newTourPage(Model model) {
         model.addAttribute("tour", new TourRequestDto());
+        model.addAttribute("types", TourType.values());
         return "tours/new";
     }
     @PostMapping("/save")
