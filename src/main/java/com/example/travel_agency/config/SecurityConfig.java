@@ -50,8 +50,8 @@ public class SecurityConfig {
                                 "tours/search/hotel","purchases","purchases/","purchases/new",
                                 "purchases/update/","airports/find/","airports/list",
                                 "cities/find/", "countries/find/","user/register").permitAll()
-                        .requestMatchers("tours/new","tours/","tours/edit/","tours/save","countries/update",
-                                "countries/","cities/","cities/create").hasRole("ADMIN")
+                        .requestMatchers("tours/new","tours/","tours/edit/{id}", "tours/update","countries/update",
+                                "countries/","cities/","cities/create","user/dashboard").hasRole("ADMIN")
                         .anyRequest().authenticated())
                 .authenticationManager(authenticationManager(http))
                 .cors(Customizer.withDefaults())

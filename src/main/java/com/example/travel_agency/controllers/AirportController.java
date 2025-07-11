@@ -22,7 +22,7 @@ public class AirportController {
 @GetMapping("/list")
 public String listAirports(Model model){
     model.addAttribute("airports", airportService.getAllAirports());
-    return "/airports/airport_list";
+    return "create";
 }
 @GetMapping("/find/{id}")
     public String editAirport(@PathVariable Long id, Model model){

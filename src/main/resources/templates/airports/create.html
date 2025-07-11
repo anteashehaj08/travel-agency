@@ -6,9 +6,9 @@
 </head>
 <body>
 <h2>Airport List</h2>
-<div sec:authorize="hasRole('admin')">
-<a th:href="@{/airport.create}">Create New Airport</a>
-<table>
+<div sec:authorize="hasRole('ADMIN')">
+  <a th:href="@{/airports/create}">Create New Airport</a>
+  <table>
   <thead>
   <tr>
   <th>ID</th>

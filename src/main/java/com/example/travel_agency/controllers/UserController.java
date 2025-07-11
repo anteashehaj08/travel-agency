@@ -16,7 +16,7 @@ public class UserController {
     @GetMapping("/register")
     public String showRegisterForm(Model model) {
         model.addAttribute("user", new User());
-        return "redirect:/users/register";
+        return "users/register";
     }
 
     @GetMapping("/create")
@@ -37,4 +37,8 @@ public class UserController {
         return "redirect:/";
     }
 
+    @GetMapping("/dashboard")
+    public String userDashboard() {
+        return "users/dashboard";
+    }
 }

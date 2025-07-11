@@ -48,7 +48,8 @@ public class TourController {
         return "tours/new";
     }
     @PostMapping("/save")
-    public String saveTour(@Valid @ModelAttribute("tour") TourRequestDto tourRequestDto, BindingResult  bindingResult) {
+    public String saveTour(@Valid @ModelAttribute("tour") TourRequestDto tourRequestDto,
+                           BindingResult  bindingResult) {
         if (bindingResult.hasErrors()) {
             return "tours/new";
         }
@@ -58,6 +59,7 @@ public class TourController {
     @GetMapping("/edit/{id}")
     public String editTourPage(@PathVariable Long id, Model model) {
         model.addAttribute("tour", tourService.findTourById(id));
+        model.addAttribute("types", TourType.values());
         return "tours/edit";
     }
     @PostMapping("/update")
