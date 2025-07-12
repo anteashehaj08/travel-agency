@@ -12,15 +12,28 @@ import org.springframework.web.bind.annotation.*;
 public class CityController {
     @Autowired
     public CityService cityService;
-    @PostMapping("/create")
-    public String create(@ModelAttribute("city") City city) {
-        cityService.createCity(city.getName(), city.getId());
+    @GetMapping
+    public String listCities(Model model) {
+        model.addAttribute("cities", cityService.getAllCities());
+        return "cities/city_list";
+    }
+    @GetMapping("/new")
+    public String showCreateForm(Model model) {
+        model.addAttribute("city", new City());
+        return "cities/city_form";
+    }
+
+    @PostMapping
+    public String createCity(@ModelAttribute City city) {
+        cityService.createCity(city.getName(), city.getNationality().getCountryId());
         return "redirect:/cities";
     }
-    @GetMapping("/find/{id}")
-    public String editCity(@PathVariable Long id, Model model){
-        model.addAttribute("city",cityService.getCityById(id));
-        return "/cities/city_list.html";
+
+    @GetMapping("/{id}")
+    public String viewCity(@PathVariable Long id, Model model) {
+        model.addAttribute("city", cityService.getCityById(id));
+        return "cities/city_details";
     }
+
 }
 

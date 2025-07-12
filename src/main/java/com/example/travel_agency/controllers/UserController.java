@@ -28,13 +28,6 @@ public class UserController {
     @PostMapping("/register")
     public String processRegister(@ModelAttribute("user") User user) {
         userService.register(user);
-        return "redirect:/";
+        return "redirect:/users/register";
     }
-
-    @PostMapping("/create")
-    public String processCreate(@ModelAttribute("user") User user) {
-        userService.create(user);
-        return "redirect:/";
-    }
-
 }
