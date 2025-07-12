@@ -24,6 +24,20 @@ public class CountryController {
     @GetMapping("/find/{id}")
     public String findById(@PathVariable Long countryId, Model model) {
         model.addAttribute("country", countryService.getCountryById(countryId));
-        return "/countries/country";
+        return "countries/country_details";
     }
+
+    @GetMapping("/{id}/edit")
+    public String showUpdateForm(@PathVariable Long id, Model model) {
+        model.addAttribute("country", countryService.getCountryById(id));
+        return "countries/country_form";
+    }
+
+    @PostMapping("/{id}/edit")
+    public String updateCountry(@PathVariable Long id, @ModelAttribute Country country) {
+        country.setCountryId(id);
+        countryService.updateCountry(country.getName(), id, country.getContinentMembership().getId());
+        return "redirect:/countries";
+    }
+
 }
