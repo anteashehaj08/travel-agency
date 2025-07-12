@@ -1,11 +1,8 @@
 package com.example.travel_agency.config;
 
-import com.example.travel_agency.entities.Continent;
 import com.example.travel_agency.entities.Role;
-import com.example.travel_agency.repositories.ContinentRepository;
 import com.example.travel_agency.repositories.RoleRepository;
 import com.example.travel_agency.security.UserDetailsServiceImpl;
-import com.example.travel_agency.statics.ContinentEnum;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -19,8 +16,6 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-import java.util.Arrays;
-
 
 @Configuration
 @EnableWebSecurity
@@ -30,9 +25,6 @@ public class SecurityConfig {
 
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
-
-    @Autowired
-    private ContinentRepository continentRepository;
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
@@ -48,22 +40,18 @@ public class SecurityConfig {
             roleRepository.save(new Role("ROLE_USER"));
         }
     }
-    @PostConstruct
-    public void addContinents() {
-        Arrays.stream(ContinentEnum.values()).forEach(enumVal -> {
-            if (!continentRepository.existsByName(enumVal)) {
-                Continent continent = new Continent();
-                continent.setName(enumVal);
-                continentRepository.save(continent);
-            }
-        });
-    }
-  @Bean
+
+      @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests( request->
-                request.requestMatchers("/tour/all", "user/register").permitAll()
-                        .requestMatchers("/tour/create","/city/create","country/create",
-                                "/airports/create", "/hotel/create", "/tour/update").hasRole("ADMIN")
+                request.requestMatchers("tours", "tours/search","tours/search/",
+                                "tours/search/city","tours/search/continent",
+                                "tours/search/country","tours/filter","tours/details/",
+                                "tours/search/hotel","purchases","purchases/","purchases/new",
+                                "purchases/update/","airports/find/","airports/list",
+                                "cities/find/", "countries/find/","user/register").permitAll()
+                        .requestMatchers("tours/new","tours/","tours/edit/{id}", "tours/update","countries/update",
+                                "countries/","cities/","cities/create","user/dashboard").hasRole("ADMIN")
                         .anyRequest().authenticated())
                 .authenticationManager(authenticationManager(http))
                 .cors(Customizer.withDefaults())

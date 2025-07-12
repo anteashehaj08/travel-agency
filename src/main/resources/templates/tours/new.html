@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Tour</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body class="container py-5">
+
+<h2>Create a Tour</h2>
+
+<form th:action="@{/tours/save}" th:object="${tour}" method="post">
+
+    <div class="mb-3">
+        <label for="fromCityId" class="form-label">From City ID</label>
+        <input type="number" class="form-control" id="fromCityId" th:field="*{cityFromId}" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="toCityId" class="form-label">To City ID</label>
+        <input type="number" class="form-control" id="toCityId" th:field="*{cityToId}" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="fromAirportId" class="form-label">From Airport ID</label>
+        <input type="number" class="form-control" id="fromAirportId" th:field="*{cityFromId}" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="toAirportId" class="form-label">To Airport ID</label>
+        <input type="number" class="form-control" id="toAirportId" th:field="*{toAirportId}" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="toHotelId" class="form-label">To Hotel ID</label>
+        <input type="number" class="form-control" id="toHotelId" th:field="*{hotelToId}" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="departureDate" class="form-label">Departure Date</label>
+        <input type="date" class="form-control" id="departureDate" th:field="*{departureDate}" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="returnDate" class="form-label">Return Date</label>
+        <input type="date" class="form-control" id="returnDate" th:field="*{returnDate}" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="typeId" class="form-label">From Type</label>
+        <select id="typeId" class="form-select" th:field="*{type}" required>
+            <option value="">-- Select Type --</option>
+            <option th:each="t : ${types}" th:value="${t}" th:text="${t}"></option>
+            </select>
+            <label for="adultPrice" class="form-label">Price for Adults</label>
+            <input type="number" class="form-control" id="adultPrice" th:field="*{priceForAdult}" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="childPrice" class="form-label">Price for Children</label>
+        <input type="number" class="form-control" id="childPrice" th:field="*{priceForChild}" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="vacancy" class="form-label">Vacant places</label>
+        <input type="number" class="form-control" id="vacancy" th:field="*{vacantPlaces}" required>
+    </div>
+
+    <div class="form-check mb-3">
+        <input class="form-check-input" type="checkbox" id="promoted" th:field="*{promoted}">
+        <label class="form-check-label" for="promoted">Promoted</label>
+    </div>
+
+    <button type="submit" class="btn btn-success" onclick="window.location.href='/tours'">Create Tour</button>
+    <a th:href="@{/tours}" class="btn btn-secondary">Cancel</a>
+
+</form>
+
+</body>
+</html>

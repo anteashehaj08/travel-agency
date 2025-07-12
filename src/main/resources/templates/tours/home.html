@@ -9,11 +9,7 @@
 
 <div class="d-flex justify-content-between align-items-center mb-4">
     <form class="d-flex w-50" th:action="@{/tours/search}" method="post">
-        <label for="searchParam" class="visually-hidden">Search tours</label>
-        <input class="form-control me-2" id="searchParam" type="text" name="searchParam" placeholder="Search by location...">
-        <button class="btn btn-outline-primary" type="submit">Search</button>
-    </form>
-
+        <button class="btn btn-outline-primary" type="button" onclick="window.location.href='/tours/search'">Search</button>    </form>
     <form class="d-flex gap-2" th:action="@{/tours/filter}" method="get">
         <div>
             <label for="sort" class="form-label">Sort by</label>
@@ -25,10 +21,10 @@
         <div>
             <label for="continent" class="form-label">Continent</label>
             <select class="form-select" name="continent" id="continent">
-                <option value="">All</option>
-                <option value="Europe">Europe</option>
-                <option value="Asia">Asia</option>
-                <!-- Add others -->
+                <option value="">-</option>
+                <option th:each="continent : ${continents}"
+                                                   th:value="${continent.id}"
+                                                   th:text="${continent.name.getDisplayName()}">
             </select>
         </div>
         <button class="btn btn-primary align-self-end" type="submit">Apply</button>
@@ -37,20 +33,18 @@
 
 <div class="row row-cols-1 row-cols-md-4 g-4">
     <div class="col" th:each="tour : ${tours}">
-        <div class="card h-100">
+        <div class="card" th:each="tour : ${tours}">
             <div class="card-body">
-                <h5 class="card-title" th:text="${tour.name}">Tour Name</h5>
-                <p class="card-text">
-                    <span th:text="'City: ' + ${tour.city}">City</span><br>
-                    <span th:text="'Hotel: ' + ${tour.hotel}">Hotel</span><br>
-                    <span th:text="'Departure: ' + ${tour.departureDate}">Departure</span>
-                </p>
-                <p class="text-success fw-bold" th:if="${tour.promoted}">Promoted</p>
-                <a th:href="@{/tours/details/{id}(id=${tour.id})}" class="btn btn-outline-info">View Details</a>
+                <p th:text="'Departure: ' + ${tour.departureDate}"></p>
+                <p th:text="'Places: ' + ${tour.numberOfPlaces}"></p>
+                <p th:text="'Adult Price: $' + ${tour.priceForAdult}"></p>
+                <a th:href="@{'/purchases/new?tourId=' + ${tour.id}}" class="btn btn-outline-primary btn-sm" title="Purchase this tour">
+                    🛒 Purchase
+                </a>
             </div>
         </div>
+
     </div>
 </div>
-
 </body>
 </html>

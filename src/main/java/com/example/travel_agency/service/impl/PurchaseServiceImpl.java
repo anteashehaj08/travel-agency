@@ -10,6 +10,10 @@ import com.example.travel_agency.service.PurchaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
 @Service
 public class PurchaseServiceImpl implements PurchaseService {
     @Autowired
@@ -17,6 +21,15 @@ public class PurchaseServiceImpl implements PurchaseService {
     @Autowired
     TourRepository tourRepository;
 
+    @Override
+    public List<PurchasingTour> findAll(){
+        return purchaseRepository.findAll();
+    }
+
+    @Override
+    public Optional<PurchasingTour> findById(Long id){
+        return purchaseRepository.findById(id);
+    }
 
     @Override
     public PurchasingTour purchase(PurchaseRequestDto purchaseDto){
@@ -63,5 +76,19 @@ public class PurchaseServiceImpl implements PurchaseService {
             throw TourException.notEnoughPlaces();
         }
     }
+
+    @Override
+    public List<PurchaseRequestDto> getRecentPurchases() {
+        return purchaseRepository.findTop10ByOrderByTourDepartureDateDesc()
+                .stream()
+                .map(purchase -> {
+                    PurchaseRequestDto dto = new PurchaseRequestDto();
+                    dto.setId(purchase.getId());
+                    dto.setTourDepartureDate(purchase.getTour().getDepartureDate());
+                    return dto;
+                })
+                .collect(Collectors.toList());
+    }
+
 
 }

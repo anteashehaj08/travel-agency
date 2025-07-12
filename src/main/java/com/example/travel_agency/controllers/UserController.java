@@ -4,9 +4,8 @@ import com.example.travel_agency.entities.User;
 import com.example.travel_agency.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping(value = "/user")
@@ -14,13 +13,32 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("/create")
-    public User create(@RequestBody User user) {
-        return userService.create(user);
+    @GetMapping("/register")
+    public String showRegisterForm(Model model) {
+        model.addAttribute("user", new User());
+        return "users/register";
+    }
+
+    @GetMapping("/create")
+    public String showCreateForm(Model model) {
+        model.addAttribute("user", new User());
+        return "users/create-user";
     }
 
     @PostMapping("/register")
-    public User register(@RequestBody User user) {
-        return userService.register(user);
+    public String processRegister(@ModelAttribute("user") User user) {
+        userService.register(user);
+        return "redirect:/";
+    }
+
+    @PostMapping("/create")
+    public String processCreate(@ModelAttribute("user") User user) {
+        userService.create(user);
+        return "redirect:/";
+    }
+
+    @GetMapping("/dashboard")
+    public String userDashboard() {
+        return "users/dashboard";
     }
 }

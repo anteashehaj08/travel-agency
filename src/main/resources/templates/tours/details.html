@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tour Details</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body class="container py-5">
+
+<h2 th:text="'Tour Details for ' + ${tour.whereTo.city}"></h2>
+
+<div class="card">
+    <div class="card-body">
+        <p><strong>Continent:</strong> <span th:text="${tour.whereTo.city.nationality.continentMembership.name}"></span></p>
+        <p><strong>Country:</strong> <span th:text="${tour.whereTo.city.nationality}"></span></p>
+        <p><strong>City:</strong> <span th:text="${tour.whereTo.city}"></span></p>
+        <p><strong>Hotel:</strong> <span th:text="${tour.whereTo.hotel}"></span></p>
+        <p><strong>Departure Date:</strong> <span th:text="${tour.departureDate}"></span></p>
+        <p><strong>Promoted:</strong> <span th:text="${tour.promoted} ? 'Yes' : 'No'"></span></p>
+    </div>
+</div>
+
+<a th:href="@{/tours}" class="btn btn-secondary mt-4">Back to Tours</a>
+
+</body>
+</html>

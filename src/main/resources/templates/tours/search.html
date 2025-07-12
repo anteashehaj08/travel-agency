@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search Tours</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body class="container py-5">
+
+<h2>Search Tours</h2>
+
+<form th:action="@{/tours/search/continent}" method="post" class="mb-3">
+    <label for="continent">By Continent:</label>
+    <input type="text" class="form-control" id="continent" name="continent" placeholder="Europe">
+    <button class="btn btn-primary mt-2" type="submit">Search</button>
+</form>
+
+<form th:action="@{/tours/search/country}" method="post" class="mb-3">
+    <label for="country">By Country:</label>
+    <input type="text" class="form-control" id="country" name="country" placeholder="Italy">
+    <button class="btn btn-primary mt-2" type="submit">Search</button>
+</form>
+
+<form th:action="@{/tours/search/city}" method="post" class="mb-3">
+    <label for="city">By City:</label>
+    <input type="text" class="form-control" id="city" name="city" placeholder="Rome">
+    <button class="btn btn-primary mt-2" type="submit">Search</button>
+</form>
+
+<form th:action="@{/tours/search/hotel}" method="post">
+    <label for="hotel">By Hotel:</label>
+    <input type="text" class="form-control" id="hotel" name="hotel" placeholder="Hotel Roma">
+    <button class="btn btn-primary mt-2" type="submit">Search</button>
+</form>
+
+<div>
+    <a th:href="@{/tours}" class="btn btn-secondary mt-4">Back to Tours</a>
+</div>
+</body>
+</html>
