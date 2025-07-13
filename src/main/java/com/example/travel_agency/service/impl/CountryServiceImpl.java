@@ -1,7 +1,6 @@
 package com.example.travel_agency.service.impl;
 
 import com.example.travel_agency.entities.Country;
-import com.example.travel_agency.exceptions.TourException;
 import com.example.travel_agency.repositories.CityRepository;
 import com.example.travel_agency.repositories.ContinentRepository;
 import com.example.travel_agency.repositories.CountryRepository;

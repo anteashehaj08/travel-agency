@@ -15,7 +15,6 @@ import com.example.travel_agency.specifications.TourSpecs;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.Comparator;
@@ -92,19 +91,23 @@ public class TourServiceImpl implements TourService {
 
     @Override
     public Tour findTourById(Long id) {
-        return tourRepository.findById(id).orElseThrow(()->TourException.idDoesNotExist("Tour"));
+        return tourRepository.findById(id)
+                .orElseThrow(()->TourException.idDoesNotExist("Tour"));
     }
     @Override
     public List<Tour> sorttedByPromoted(){
-       return tourRepository.findAll().stream().sorted(Comparator.comparing(Tour::getPromoted).reversed()).toList();
+       return tourRepository.findAll().stream()
+               .sorted(Comparator.comparing(Tour::getPromoted).reversed()).toList();
     }
     @Override
     public List<Tour> sorttedByDeparture(){
-        return tourRepository.findAll().stream().sorted(Comparator.comparing(Tour::getDepartureDate)).toList();
+        return tourRepository.findAll().stream()
+                .sorted(Comparator.comparing(Tour::getDepartureDate)).toList();
     }
     @Override
     public List<Tour> sorttedByAvailability(){
-        return tourRepository.findAll().stream().sorted(Comparator.comparing(tour -> tour.getNumberOfPlaces()>3)).toList();
+        return tourRepository.findAll().stream()
+                .sorted(Comparator.comparing(tour -> tour.getNumberOfPlaces()>3)).toList();
     }
 
 }

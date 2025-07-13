@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1>Edit City</h1>
-<form th:action="@{/cities/create}" th:object="${city}" method="post">
+<form th:action="@{/cities/new}" th:object="${city}" method="post">
     <input type="hidden" th:field="*{id}" />
     <div>
         <label for="name">City Name:</label>

@@ -27,6 +27,7 @@ public class UserServiceImpl implements UserService {
             throw TourException.userExists(user.getUsername());
         } else {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
+            user.setActive(true);
         }
         return userRepository.save(user);
     }

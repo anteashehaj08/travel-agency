@@ -16,7 +16,7 @@ public class UserController {
     @GetMapping("/register")
     public String showRegisterForm(Model model) {
         model.addAttribute("user", new User());
-        return "redirect:/users/register";
+        return "/users/register";
     }
 
     @GetMapping("/create")
@@ -28,6 +28,6 @@ public class UserController {
     @PostMapping("/register")
     public String processRegister(@ModelAttribute("user") User user) {
         userService.register(user);
-        return "redirect:/users/register";
+        return "redirect:/user/register";
     }
 }

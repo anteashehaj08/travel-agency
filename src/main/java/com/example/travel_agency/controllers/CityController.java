@@ -20,7 +20,7 @@ public class CityController {
     @GetMapping("/new")
     public String showCreateForm(Model model) {
         model.addAttribute("city", new City());
-        return "cities/city_form";
+        return "cities/city";
     }
 
     @PostMapping
